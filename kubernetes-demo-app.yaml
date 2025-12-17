@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kubernetes-demo-app
-          image: anvi552/kubernetes-demo-app:2.0.0   # your local Docker image
+          image: anvi552/kubernetes-demo-app:2.0.1   # your local Docker image
           imagePullPolicy: IfNotPresent      # use local image if available
           ports:
             - containerPort: 8080           # port inside the container
