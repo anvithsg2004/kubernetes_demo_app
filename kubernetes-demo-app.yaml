@@ -1,0 +1,36 @@
+# ---------- Deployment: runs your Spring Boot pods ----------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-demo-app
+spec:
+  replicas: 3                   # how many pod copies you want
+  selector:
+    matchLabels:
+      app: kubernetes-demo-app  # must match pod template's labels
+  template:
+    metadata:
+      labels:
+        app: kubernetes-demo-app
+    spec:
+      containers:
+        - name: kubernetes-demo-app
+          image: anvi552/kubernetes-demo-app:2.0.0   # your local Docker image
+          imagePullPolicy: IfNotPresent      # use local image if available
+          ports:
+            - containerPort: 8080           # port inside the container
+
+---
+# ---------- Service: exposes the app ----------
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-demo-app
+spec:
+  type: NodePort                      # reachable from outside via a node port
+  selector:
+    app: kubernetes-demo-app          # send traffic to pods with this label
+  ports:
+    - port: 8080                      # service port (inside cluster)
+      targetPort: 8080                # container port in the pod
+      # nodePort: 30080               # optional: fixed external port; if omitted, k8s picks one
