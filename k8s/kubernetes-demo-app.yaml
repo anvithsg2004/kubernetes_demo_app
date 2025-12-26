@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: kubernetes-demo-app
 spec:
-  replicas: 5                   # how many pod copies you want
+  replicas: 2                   # how many pod copies you want
   selector:
     matchLabels:
       app: kubernetes-demo-app  # must match pod template's labels
